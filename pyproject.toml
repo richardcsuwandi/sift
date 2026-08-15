@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sift-file-copilot"
+version = "0.4.2"
+description = "A private, local AI file copilot"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "ollama",
+  "pypdf",
+  "python-docx",
+  "python-multipart",
+  "pillow",
+  "typer>=0.12",
+  "rich>=13.7",
+  "prompt-toolkit>=3.0",
+  "platformdirs>=4.0",
+]
+
+[project.scripts]
+sift = "app.cli:run"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+app = ["static/*"]

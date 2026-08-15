@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 
 from app.db import get_conn, search_files
 from app.embeddings import available_model, embed_query
@@ -137,7 +138,7 @@ def _strip_citation_numbers(answer: str) -> str:
     return re.sub(r"\s{2,}", " ", _CITATION_NOISE.sub("", answer)).strip()
 
 
-def ask(question: str, model: str | None = None) -> dict:
+def ask(question: str, model: str | None = None, root: str | Path | None = None) -> dict:
     installed = list_models()
     embed_model = available_model(installed)
     # Both are best-effort: with no embedding model the search is lexical only,
@@ -147,9 +148,16 @@ def ask(question: str, model: str | None = None) -> dict:
 
     with get_conn() as conn:
         rows = search_files(
-            conn, question, limit=ASK_CANDIDATES,
+            conn, question, limit=200 if root else ASK_CANDIDATES,
             query_vector=query_vector, lexical_query=lexical_query,
         )
+
+    if root:
+        selected = Path(root).resolve()
+        rows = [
+            row for row in rows
+            if Path(row["path"]).is_relative_to(selected)
+        ][:ASK_CANDIDATES]
 
     if not rows:
         return {

@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from platformdirs import user_data_path
+
 # Default model tag, used unless a request specifies a different one (see
 # /api/models). Any Ollama-supported model works; qwen3:4b is the default
 # because it benchmarked fastest and most consistent on the organize task
@@ -163,7 +165,20 @@ IMAGE_EXCERPT_MAX_CHARS = 1200
 # without changing the file, so it needs this to invalidate the cache.
 EXTRACTOR_VERSION = 2
 
-DB_PATH = Path(__file__).resolve().parent.parent / "data" / "file_index.db"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+_data_override = os.environ.get("SIFT_DATA_DIR")
+# Source checkouts keep their existing local database, preserving the web
+# app's development workflow. Installed wheels have no .git directory and use
+# the OS-standard per-user application data location instead of attempting to
+# write into site-packages.
+DATA_DIR = (
+    Path(_data_override).expanduser()
+    if _data_override
+    else PROJECT_ROOT / "data"
+    if (PROJECT_ROOT / ".git").exists()
+    else user_data_path("Sift", appauthor=False)
+)
+DB_PATH = DATA_DIR / "file_index.db"
 
 
 def is_safe_root(path: Path) -> bool:

@@ -5,3 +5,7 @@ pypdf
 python-docx
 python-multipart
 pillow
+typer>=0.12
+rich>=13.7
+prompt-toolkit>=3.0
+platformdirs>=4.0
