@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sift · Your personal file copilot</title>
+  <link rel="icon" type="image/svg+xml" href="/static/icon.svg" />
+  <link rel="apple-touch-icon" href="/static/icon.svg" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="titlebar">
+    <div class="title-left">
+      <svg class="app-mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path class="mark-back" d="M3.8 6.6h3.9a1.3 1.3 0 0 1 .9.4l1.5 1.4h6.5a1.6 1.6 0 0 1 1.6 1.6v7.8a1.6 1.6 0 0 1-1.6 1.6H3.8a1.6 1.6 0 0 1-1.6-1.6V8.2a1.6 1.6 0 0 1 1.6-1.6z" />
+        <path d="M2.2 11.2h16v6.6a1.6 1.6 0 0 1-1.6 1.6H3.8a1.6 1.6 0 0 1-1.6-1.6z" />
+        <path class="mark-spark" transform="translate(18.9 5) scale(4.5)" stroke-width="0.33"
+              d="M0-1C.12-.5.5-.12 1 0 .5.12.12.5 0 1-.12.5-.5.12-1 0-.5-.12-.12-.5 0-1Z" />
+      </svg>
+      <span class="app-name">Sift</span>
+      <span class="app-sub">Your personal file copilot</span>
+    </div>
+    <div class="title-right">
+      <button class="btn btn-icon" id="theme-toggle" title="Toggle light/dark theme" aria-label="Toggle light/dark theme"></button>
+      <label for="model-select" class="model-label">Model</label>
+      <div class="select-wrap">
+        <select id="model-select" aria-label="Model"></select>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- Step 1 — folder -->
+    <section class="card" id="step-folder">
+      <header class="card-head">
+        <span class="step">1</span>
+        <h2>Choose a folder</h2>
+      </header>
+      <div class="folder-row">
+        <div class="folder-display" id="selected-folder">No folder selected</div>
+        <button class="btn" id="browse-btn">Choose…</button>
+      </div>
+      <div class="chip-row" id="quick-picks"></div>
+      <div class="recent-block hidden" id="recent-block">
+        <span class="recent-label">Recent</span>
+        <div class="chip-row" id="recent-roots"></div>
+        <button class="btn-link" id="clear-recent" title="Forget every scanned folder and delete its index">Clear</button>
+      </div>
+    </section>
+
+    <!-- Step 2 — scan -->
+    <section class="card is-locked" id="step-scan">
+      <header class="card-head">
+        <span class="step">2</span>
+        <h2>Scan &amp; index</h2>
+      </header>
+      <p class="hint" id="scan-hint">Reads filenames and text content so the assistant knows what's in the folder.</p>
+
+      <div class="opt-row" id="vision-row">
+        <label class="opt-main">
+          <input type="checkbox" id="read-images" />
+          <span class="opt-text">
+            <span class="opt-title">Read image contents</span>
+            <span class="opt-sub" id="vision-sub">Uses a vision model to read text inside screenshots and photos, so you can search by what's in them.</span>
+          </span>
+        </label>
+        <div class="select-wrap opt-select">
+          <select id="vision-select" aria-label="Vision model"></select>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-primary" id="index-btn" disabled>Scan &amp; Index</button>
+        <span class="inline-status" id="scan-status"></span>
+      </div>
+
+      <div class="progress-block hidden" id="scan-progress">
+        <div class="progress-meta">
+          <span class="progress-file" id="scan-progress-file"></span>
+          <span class="progress-count" id="scan-progress-count"></span>
+        </div>
+        <div class="progress"><span id="scan-progress-bar"></span></div>
+      </div>
+    </section>
+
+    <!-- Step 3 — actions -->
+    <section class="card is-locked" id="step-actions">
+      <header class="card-head">
+        <span class="step">3</span>
+        <h2>Ask AI</h2>
+      </header>
+
+      <!-- A feature is one seg-item plus the tab-panel its data-tab names.
+           Controls marked data-needs-index are enabled once a scan finishes. -->
+      <div class="segmented" role="tablist">
+        <button class="seg-item is-active" data-tab="find" role="tab">Find</button>
+        <button class="seg-item" data-tab="do" role="tab">Do</button>
+        <button class="seg-item" data-tab="organize" role="tab">Organize</button>
+      </div>
+
+      <!-- Find -->
+      <div class="tab-panel" id="panel-find">
+        <div class="ask-row">
+          <input type="text" id="ask-input" data-needs-index placeholder="Search your files in natural language" disabled />
+          <button class="btn btn-primary" id="ask-btn" data-needs-index disabled>Find</button>
+        </div>
+        <div class="answer hidden" id="ask-answer"></div>
+        <div class="inline-status ask-timing" id="ask-timing"></div>
+        <ul class="result-list" id="ask-results"></ul>
+      </div>
+
+      <!-- Do: the same plan, asked for in a sentence instead of a button. -->
+      <div class="tab-panel hidden" id="panel-do">
+        <div class="ask-row">
+          <input type="text" id="do-input" data-needs-index placeholder="Tell Sift what to do with these files" disabled />
+          <button class="btn btn-primary" id="do-btn" data-needs-index disabled>Do</button>
+        </div>
+        <div class="inline-status" id="do-status"></div>
+      </div>
+
+      <!-- Organize -->
+      <div class="tab-panel hidden" id="panel-organize">
+        <div class="action-row">
+          <button class="btn btn-primary" id="suggest-btn" data-needs-index disabled>Organize</button>
+          <button class="btn btn-quiet" id="undo-btn">Undo last run</button>
+          <span class="inline-status" id="organize-status"></span>
+        </div>
+
+      </div>
+
+      <!-- Organize and Do share the same long-running plan progress. It must
+           live outside either hidden tab panel so both modes can show it. -->
+      <div class="progress-block hidden" id="organize-progress">
+        <div class="progress-meta">
+          <span class="progress-file" id="progress-file"></span>
+          <span class="progress-count" id="progress-count"></span>
+        </div>
+        <div class="progress"><span id="progress-bar"></span></div>
+      </div>
+
+      <!-- Shared plan review: both Organize and Do produce the same before/after
+           tree and the same editable table, and apply through the same route. -->
+      <div id="plan-area">
+        <div class="hidden" id="diff-block">
+          <div class="diff-head">
+            <h3>Proposed changes</h3>
+            <span class="diff-summary" id="diff-summary"></span>
+          </div>
+          <div class="diff-grid">
+            <div class="tree-pane">
+              <div class="tree-title">Before</div>
+              <pre class="tree" id="tree-before"></pre>
+            </div>
+            <div class="tree-pane">
+              <div class="tree-title">After</div>
+              <pre class="tree" id="tree-after"></pre>
+            </div>
+          </div>
+
+          <details class="review">
+            <summary>Review &amp; edit <span id="review-count"></span></summary>
+            <table class="review-table">
+              <thead>
+                <tr>
+                  <th class="col-check"><input type="checkbox" id="check-all" checked /></th>
+                  <th class="col-thumb"></th>
+                  <th>File</th>
+                  <th>Category</th>
+                  <th>Subfolder</th>
+                  <th>New name</th>
+                </tr>
+              </thead>
+              <tbody id="review-body"></tbody>
+            </table>
+          </details>
+
+          <div class="action-row apply-row">
+            <button class="btn btn-primary" id="apply-btn">Apply selected</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-foot">
+    <span>Built by
+      <a href="https://richardcsuwandi.github.io" target="_blank" rel="noopener noreferrer">Richard Cornelius Suwandi</a>
+      with Qwen 3.8 Max
+    </span>
+    <span class="foot-sep" aria-hidden="true">·</span>
+    <span>&copy; 2026</span>
+  </footer>
+
+  <!-- Folder browser sheet -->
+  <div class="sheet-backdrop hidden" id="sheet-backdrop">
+    <div class="sheet" role="dialog" aria-label="Choose folder">
+      <header class="sheet-head">
+        <button class="btn btn-quiet btn-icon" id="sheet-up" title="Up one level">↑</button>
+        <span class="sheet-path" id="sheet-path"></span>
+      </header>
+      <ul class="browse-list" id="browse-list"></ul>
+      <footer class="sheet-foot">
+        <button class="btn btn-quiet" id="sheet-cancel">Cancel</button>
+        <button class="btn btn-primary" id="sheet-select">Select this folder</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/static/app.js?v=20260815-2"></script>
+</body>
+</html>

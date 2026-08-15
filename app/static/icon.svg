@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Sift">
+  <title>Sift</title>
+  <defs>
+    <!-- userSpaceOnUse so the sparkle halo strokes sample the same tile colour they sit on -->
+    <linearGradient id="tile" gradientUnits="userSpaceOnUse" x1="40" y1="24" x2="472" y2="496">
+      <stop offset="0" stop-color="#5CB1FF" />
+      <stop offset="0.55" stop-color="#1180F5" />
+      <stop offset="1" stop-color="#0A5FD0" />
+    </linearGradient>
+    <linearGradient id="paper" gradientUnits="userSpaceOnUse" x1="76" y1="234" x2="436" y2="398">
+      <stop offset="0" stop-color="#FFFFFF" />
+      <stop offset="1" stop-color="#EAF2FC" />
+    </linearGradient>
+    <linearGradient id="gloss" gradientUnits="userSpaceOnUse" x1="256" y1="0" x2="256" y2="300">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- rounded tile -->
+  <rect width="512" height="512" rx="114" fill="url(#tile)" />
+  <rect width="512" height="512" rx="114" fill="url(#gloss)" />
+
+  <!-- folder, back leaf -->
+  <path d="M108 144h77a26 26 0 0 1 18 7l28 28h173a32 32 0 0 1 32 32v155a32 32 0 0 1-32 32H108a32 32 0 0 1-32-32V176a32 32 0 0 1 32-32z"
+        fill="#C6DEFA" />
+  <!-- folder, front leaf -->
+  <path d="M76 234h360v132a32 32 0 0 1-32 32H108a32 32 0 0 1-32-32z" fill="url(#paper)" />
+
+  <!-- indexed lines -->
+  <g fill="#1180F5" opacity="0.55">
+    <rect x="122" y="292" width="166" height="18" rx="9" />
+    <rect x="122" y="332" width="108" height="18" rx="9" />
+  </g>
+
+  <!-- AI sparkles. stroke-width is in local units, so it is divided by each sparkle's scale. -->
+  <g stroke="url(#tile)" stroke-linejoin="round" fill="#FFFFFF">
+    <path transform="translate(400 140) scale(62)" stroke-width="0.31"
+          d="M0-1C.12-.5.5-.12 1 0 .5.12.12.5 0 1-.12.5-.5.12-1 0-.5-.12-.12-.5 0-1Z" />
+    <path transform="translate(314 88) scale(27)" stroke-width="0.6"
+          d="M0-1C.12-.5.5-.12 1 0 .5.12.12.5 0 1-.12.5-.5.12-1 0-.5-.12-.12-.5 0-1Z" />
+  </g>
+</svg>
