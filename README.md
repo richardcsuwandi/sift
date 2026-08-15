@@ -6,12 +6,9 @@ Sift helps you find a file when you remember its meaning but not its name. It
 searches filenames, document contents, and indexed images, then shows the
 evidence behind every result. It can also make sense of a cluttered folder,
 propose a useful structure, and follow plain-language requests to move or
-rename files—all with local AI models.
+rename files, all with local AI models.
 
 [View the Sift website](https://richardcsuwandi.github.io/sift/)
-
-The initial release supports macOS. See [Platform support](#platform-support)
-for details.
 
 ## What you can do
 
