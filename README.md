@@ -2,17 +2,20 @@
 
 **Find, understand, and organize your files with private local AI.**
 
-Sift is a personal file copilot. Ask for a file in natural language, search
-inside documents and images, or describe how you want to clean up a folder.
-Sift turns every change into an editable plan before it touches anything on
-disk. Your files and AI models stay on your computer.
+Sift helps you find a file when you remember its meaning but not its name. It
+searches filenames, document contents, and indexed images, then shows the
+evidence behind every result. It can also make sense of a cluttered folder,
+propose a useful structure, and follow plain-language requests to move or
+rename files—all with local AI models.
+
+[View the Sift website](https://richardcsuwandi.github.io/sift/)
 
 The initial release supports macOS. See [Platform support](#platform-support)
 for details.
 
 ## What you can do
 
-### Find files by meaning
+### Find what you remember
 
 Search the way you remember. Ask for "the paper about learning from a few
 examples" or "the invoice from March." Sift searches filenames and document
@@ -22,7 +25,7 @@ contents, then shows the matching evidence so you can verify every result.
   <img src="demo/semantic_retrieval.webp" alt="Finding a document with semantic search in Sift" width="900">
 </p>
 
-### Search inside screenshots and images
+### Search what is inside an image
 
 Enable image reading during a scan to find screenshots by their visible text
 and visual context, even when the filename tells you nothing useful.
@@ -31,7 +34,7 @@ and visual context, even when the filename tells you nothing useful.
   <img src="demo/vision_retrieval.webp" alt="Finding a screenshot by its visual contents in Sift" width="900">
 </p>
 
-### Organize a folder as one collection
+### Organize with a sentence
 
 Sift reviews the full batch and proposes useful categories, subfolders, and
 clearer filenames. Related files stay together instead of being classified
@@ -41,7 +44,7 @@ into inconsistent one-off folders.
   <img src="demo/organize.webp" alt="Reviewing an AI-generated folder organization plan in Sift" width="900">
 </p>
 
-### Move, rename, or trash files in plain English
+### Review every change before it happens
 
 Say "move all PDFs into Papers," "rename these papers as author_year_title,"
 or "trash the installers." Every instruction becomes a reviewable
@@ -66,19 +69,24 @@ experience. It is useful when you know what a file means but not what it is
 called. It is also useful when you know the result you want but do not want to
 build and maintain a permanent automation rule.
 
-| Area              | **Sift**                                                                                      | **Existing file organizers**                                               |
-| ----------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Core experience   | Understand, find, and organize files in one place                                             | Primarily sort, rename, or move files                                      |
-| Search            | Natural-language search across filenames, documents, and indexed images with visible evidence | Commonly relies on filenames, metadata, filters, or manually defined rules |
-| Organization      | Proposes a coherent folder structure from the contents of the full batch                      | Commonly sorts each file using predefined categories or conditions         |
-| Instructions      | Accepts plain-language requests to move, rename, group, or trash files                        | Commonly uses menus, profiles, rules, or fixed workflows                   |
-| Personalization   | Learns preferred folder names from the corrections you apply                                  | Commonly requires categories or rules to be configured manually            |
-| Review and safety | Provides an editable plan, selective apply, collision protection, and one-click undo          | Preview, editing, and undo support vary by product                         |
-| AI and privacy    | Uses your choice of local AI models and keeps file contents on your Mac                       | AI and cloud usage vary by product                                         |
+| Area            | **Sift**                                                    | **Existing file organizers**                              |
+| --------------- | ----------------------------------------------------------- | --------------------------------------------------------- |
+| Core experience | Understand, find, and organize files in one place           | Primarily sort, rename, or move files                     |
+| Search          | Natural-language retrieval with visible evidence            | Commonly relies on filenames, metadata, filters, or rules |
+| Organization    | Proposes a coherent structure from the full batch            | Commonly uses predefined categories or conditions        |
+| Workflow        | Plain-language requests with a before-and-after preview      | Commonly uses menus, profiles, rules, or fixed workflows  |
+| Privacy         | Uses local Ollama models and keeps file contents on your Mac | AI and cloud usage vary by product                        |
 
 Sift is not only for cleaning up a folder. It helps you understand and find
 your files first, then turns that understanding into a safe organization plan
 that you can review and control.
+
+- **Your models:** Choose compatible chat, embedding, and vision models
+  installed in Ollama.
+- **Your data:** Filenames, document text, images, prompts, and embeddings
+  remain local.
+- **Your decision:** Model output stays a suggestion until you choose to apply
+  it.
 
 ## Supported content
 
@@ -110,18 +118,28 @@ choose **Open**, then confirm that you want to open it.
 ## CLI mode
 
 <p align="center">
-  <img src="demo/sift-cli.png" alt="Sift command-line interface" width="192" height="192">
+  <img src="demo/sift-cli.png" alt="Sift command-line interface" width="720">
 </p>
 
-The CLI needs two local tools: [Ollama](https://ollama.com/download) to run the
-models and [uv](https://docs.astral.sh/uv/) to install the isolated `sift`
-command. Install both, then run:
+Sift also runs as a command-line app you can talk to. It uses the same local
+models, safety checks, review plans, and undo log as the Mac app. Run these
+commands once; skip an install line if you already have that tool:
 
 ```bash
+# Install the tools Sift needs
+curl -fsSL https://ollama.com/install.sh | sh
+open -a Ollama
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source ~/.local/bin/env
+
+# Install Sift
 git clone https://github.com/richardcsuwandi/sift.git
 cd sift
 ollama pull qwen3:4b
+ollama pull qwen3-embedding:0.6b
 uv tool install .
+
+# Start Sift in a folder
 sift ~/Downloads
 ```
 
