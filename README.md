@@ -110,7 +110,7 @@ choose **Open**, then confirm that you want to open it.
 ## CLI mode
 
 <p align="center">
-  <img src="demo/sift-clip.png" alt="Sift command-line interface" width="192" height="72">
+  <img src="demo/sift-cli.png" alt="Sift command-line interface" width="192" height="72">
 </p>
 
 The CLI needs two local tools: [Ollama](https://ollama.com/download) to run the
