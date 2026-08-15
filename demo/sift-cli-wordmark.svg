@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 72" role="img" aria-labelledby="title">
+  <title id="title">Sift</title>
+  <defs><rect id="pixel" width="12" height="12"/></defs>
+  <g fill="#1687ff" shape-rendering="crispEdges">
+    <!-- S: 111 / 100 / 111 / 001 / 111 -->
+    <use href="#pixel" x="0" y="0"/><use href="#pixel" x="15" y="0"/><use href="#pixel" x="30" y="0"/>
+    <use href="#pixel" x="0" y="15"/>
+    <use href="#pixel" x="0" y="30"/><use href="#pixel" x="15" y="30"/><use href="#pixel" x="30" y="30"/>
+    <use href="#pixel" x="30" y="45"/>
+    <use href="#pixel" x="0" y="60"/><use href="#pixel" x="15" y="60"/><use href="#pixel" x="30" y="60"/>
+
+    <!-- I: 1 / 1 / 1 / 1 / 1 -->
+    <use href="#pixel" x="60" y="0"/><use href="#pixel" x="60" y="15"/><use href="#pixel" x="60" y="30"/><use href="#pixel" x="60" y="45"/><use href="#pixel" x="60" y="60"/>
+
+    <!-- F: 111 / 100 / 110 / 100 / 100 -->
+    <use href="#pixel" x="90" y="0"/><use href="#pixel" x="105" y="0"/><use href="#pixel" x="120" y="0"/>
+    <use href="#pixel" x="90" y="15"/>
+    <use href="#pixel" x="90" y="30"/><use href="#pixel" x="105" y="30"/>
+    <use href="#pixel" x="90" y="45"/><use href="#pixel" x="90" y="60"/>
+
+    <!-- T: 111 / 010 / 010 / 010 / 010 -->
+    <use href="#pixel" x="150" y="0"/><use href="#pixel" x="165" y="0"/><use href="#pixel" x="180" y="0"/>
+    <use href="#pixel" x="165" y="15"/><use href="#pixel" x="165" y="30"/><use href="#pixel" x="165" y="45"/><use href="#pixel" x="165" y="60"/>
+  </g>
+</svg>

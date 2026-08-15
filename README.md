@@ -107,20 +107,63 @@ downloaded Sift folder in place because the app uses the files inside it.
 If macOS blocks the installer or app on the first launch, Control-click it,
 choose **Open**, then confirm that you want to open it.
 
-### Terminal setup
+## CLI mode
 
-If you prefer the command line, run:
+<p align="center">
+  <img src="demo/sift-cli-wordmark.svg" alt="Sift command-line wordmark" width="192" height="72">
+</p>
+
+The CLI needs two local tools: [Ollama](https://ollama.com/download) to run the
+models and [uv](https://docs.astral.sh/uv/) to install the isolated `sift`
+command. Install both, then run:
 
 ```bash
 git clone https://github.com/richardcsuwandi/sift.git
 cd sift
-
 ollama pull qwen3:4b
-./run.sh
+uv tool install .
+sift ~/Downloads
 ```
 
-Sift opens at [http://127.0.0.1:8000](http://127.0.0.1:8000). The first run
-creates an isolated Python environment and installs the required packages.
+`sift PATH` opens an agent-style session scoped to that folder. The terminal
+header keeps the active folder, chat model, and index state visible while a
+persistent prompt accepts plain-English questions and slash commands. Before
+the prompt appears, Sift refreshes new and changed files and reuses everything
+unchanged, so later launches stay quick.
+
+Ask where a file is, describe a move or rename, or ask Sift to organize the
+folder. Search answers cite matching local evidence, and `/reveal` selects the
+top result in Finder without leaving the session.
+
+Natural-language changes are never applied silently. Sift shows a before/after
+plan and immediately offers approve, decline, toggle, edit, and save controls.
+Organization builds its proposed destination tree live. Applied batches can be
+restored with `/undo`.
+
+The interactive commands are:
+
+```text
+/scan [--images]  rescan files; optionally read image contents
+/organize         propose a complete folder structure
+/plan             show a postponed plan
+/apply            reopen a plan you postponed
+/undo             restore the last applied batch
+/folder PATH      switch folders and refresh their index
+/model [NAME]     show model roles or select the chat model
+/reveal           select the top search result in Finder
+/status           show the folder, index, and model configuration
+/help             show the command guide
+/clear            clear the terminal
+/exit             leave Sift
+```
+
+The model view explains which local Ollama model handles chat and organization,
+which creates search embeddings, and which reads images. Pull the default chat
+model before starting:
+
+```bash
+ollama pull qwen3:4b
+```
 
 For faster meaning-based search, install the default embedding model:
 
@@ -134,9 +177,27 @@ For search inside screenshots and images, install the default vision model:
 ollama pull qwen2.5vl:3b
 ```
 
+Image reading is deliberately opt-in because it is slower:
+
+```text
+/scan --images
+```
+
 Sift automatically lists compatible models installed in Ollama. These models
 are defaults, not requirements. You can choose other compatible local models
-from the app.
+with `/model NAME` or from the browser app.
+
+The same operations are scriptable without opening an interactive session:
+
+```bash
+sift status ~/Downloads
+sift ask "Where is my March invoice?" --folder ~/Downloads
+sift plan "move all PDFs into Papers" --folder ~/Downloads --save papers.json
+sift apply papers.json
+sift organize ~/Downloads --save organize.json
+sift reveal ~/Downloads/invoice.pdf
+sift undo
+```
 
 ## Platform support
 
