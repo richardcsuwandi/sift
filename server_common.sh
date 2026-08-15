@@ -186,6 +186,9 @@ ensure_venv() {
   elif command -v python3.11 >/dev/null 2>&1; then
     python3.11 -m venv "$APP_ROOT/.venv"
     "$APP_ROOT/.venv/bin/pip" install -q -r "$APP_ROOT/requirements.txt"
+  elif command -v python3 >/dev/null 2>&1 && python3 -c 'import sys; raise SystemExit(sys.version_info < (3, 11))'; then
+    python3 -m venv "$APP_ROOT/.venv"
+    "$APP_ROOT/.venv/bin/pip" install -q -r "$APP_ROOT/requirements.txt"
   else
     echo "Python 3.11 is required. Install Python or uv, then open Sift again." >&2
     return 1
