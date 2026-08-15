@@ -84,19 +84,19 @@ experience. It is useful when you know what a file means but not what it is
 called. It is also useful when you know the result you want but do not want to
 build and maintain a permanent automation rule.
 
-| | **Sift** | **[Hazel](https://www.noodlesoft.com/)** | **[DropIt](https://www.dropitproject.com/)** |
-|---|---|---|---|
-| Primary interaction | Ask questions or give plain-language instructions | Build conditions and actions for watched folders | Build filter-and-action associations |
-| Best suited to | Understanding, finding, and interactively reorganizing mixed files | Powerful ongoing macOS automation | Repeatable Windows file-processing workflows |
-| Organization | Proposes a structure from the contents of the current batch | Follows the rules and destinations you define | Follows the profiles and destinations you define |
-| Search experience | Natural-language search across filenames, documents, and indexed images with visible evidence | Uses file attributes and content as automation conditions | Uses names, properties, and content as action filters |
-| Change control | Editable plan, selective apply, collision protection, and one-click undo | Rule preview and configurable automated actions | Manual or monitored processing through configured actions |
-| AI and privacy | Uses your choice of local Ollama models and keeps file contents on your Mac | Local rules-based Mac app | Local open-source Windows utility |
+| Area | **Sift** | **Existing file organizers** |
+|---|---|---|
+| Core experience | Understand, find, and organize files in one place | Primarily sort, rename, or move files |
+| Search | Natural-language search across filenames, documents, and indexed images with visible evidence | Commonly relies on filenames, metadata, filters, or manually defined rules |
+| Organization | Proposes a coherent folder structure from the contents of the full batch | Commonly sorts each file using predefined categories or conditions |
+| Instructions | Accepts plain-language requests to move, rename, group, or trash files | Commonly uses menus, profiles, rules, or fixed workflows |
+| Personalization | Learns preferred folder names from the corrections you apply | Commonly requires categories or rules to be configured manually |
+| Review and safety | Provides an editable plan, selective apply, collision protection, and one-click undo | Preview, editing, and undo support vary by product |
+| AI and privacy | Uses your choice of local Ollama models and keeps file contents on your Mac | AI and cloud usage vary by product |
 
-Hazel and DropIt are strong choices when you already know the lasting rules
-you want to automate. Sift is designed for content-aware search and cleanup.
-It helps you understand the files, review a proposal, and apply only the
-changes you want.
+Sift is not only for cleaning up a folder. It helps you understand and find
+your files first, then turns that understanding into a safe organization plan
+that you can review and control.
 
 ## Supported content
 
