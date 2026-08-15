@@ -1,20 +1,6 @@
-<p align="center">
-  <a href="app/static/icon.svg">
-    <img src="app/static/icon.svg" alt="Sift logo" width="144" height="144">
-  </a>
-</p>
+# Sift
 
-<h1 align="center">Sift</h1>
-
-<p align="center">
-  <strong>Find, understand, and organize your files with private local AI.</strong>
-</p>
-
-<p align="center">
-  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="Initial release for macOS" src="https://img.shields.io/badge/initial_release-macOS-111111?logo=apple">
-  <a href="https://ollama.com/"><img alt="Powered by Ollama" src="https://img.shields.io/badge/AI-local%20with%20Ollama-000000"></a>
-</p>
+**Find, understand, and organize your files with private local AI.**
 
 Sift is a personal file copilot. Ask for a file in natural language, search
 inside documents and images, or describe how you want to clean up a folder.
@@ -24,10 +10,6 @@ disk. Your files and AI models stay on your computer.
 The initial release supports macOS. See [Platform support](#platform-support)
 for details.
 
-<p align="center">
-  <img src="demo/organize.webp" alt="Sift organizing a folder into a clean structure" width="900">
-</p>
-
 ## What you can do
 
 ### Find files by meaning
@@ -36,18 +18,10 @@ Search the way you remember. Ask for "the paper about learning from a few
 examples" or "the invoice from March." Sift searches filenames and document
 contents, then shows the matching evidence so you can verify every result.
 
-<p align="center">
-  <img src="demo/semantic_retrieval.webp" alt="Finding a document with semantic search in Sift" width="900">
-</p>
-
 ### Search inside screenshots and images
 
 Enable image reading during a scan to find screenshots by their visible text
 and visual context, even when the filename tells you nothing useful.
-
-<p align="center">
-  <img src="demo/vision_retrieval.webp" alt="Finding a screenshot by its visual contents in Sift" width="900">
-</p>
 
 ### Organize a folder as one collection
 
@@ -55,19 +29,11 @@ Sift reviews the full batch and proposes useful categories, subfolders, and
 clearer filenames. Related files stay together instead of being classified
 into inconsistent one-off folders.
 
-<p align="center">
-  <img src="demo/organize.webp" alt="Reviewing an AI-generated folder organization plan in Sift" width="900">
-</p>
-
 ### Move, rename, or trash files in plain English
 
 Say "move all PDFs into Papers," "rename these papers as author_year_title,"
 or "trash the installers." Every instruction becomes a reviewable
 before-and-after plan.
-
-<p align="center">
-  <img src="demo/move.webp" alt="Moving files with a natural-language instruction in Sift" width="900">
-</p>
 
 ### Stay in control
 
@@ -84,15 +50,15 @@ experience. It is useful when you know what a file means but not what it is
 called. It is also useful when you know the result you want but do not want to
 build and maintain a permanent automation rule.
 
-| Area | **Sift** | **Existing file organizers** |
-|---|---|---|
-| Core experience | Understand, find, and organize files in one place | Primarily sort, rename, or move files |
-| Search | Natural-language search across filenames, documents, and indexed images with visible evidence | Commonly relies on filenames, metadata, filters, or manually defined rules |
-| Organization | Proposes a coherent folder structure from the contents of the full batch | Commonly sorts each file using predefined categories or conditions |
-| Instructions | Accepts plain-language requests to move, rename, group, or trash files | Commonly uses menus, profiles, rules, or fixed workflows |
-| Personalization | Learns preferred folder names from the corrections you apply | Commonly requires categories or rules to be configured manually |
-| Review and safety | Provides an editable plan, selective apply, collision protection, and one-click undo | Preview, editing, and undo support vary by product |
-| AI and privacy | Uses your choice of local Ollama models and keeps file contents on your Mac | AI and cloud usage vary by product |
+| Area              | **Sift**                                                                                      | **Existing file organizers**                                               |
+| ----------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Core experience   | Understand, find, and organize files in one place                                             | Primarily sort, rename, or move files                                      |
+| Search            | Natural-language search across filenames, documents, and indexed images with visible evidence | Commonly relies on filenames, metadata, filters, or manually defined rules |
+| Organization      | Proposes a coherent folder structure from the contents of the full batch                      | Commonly sorts each file using predefined categories or conditions         |
+| Instructions      | Accepts plain-language requests to move, rename, group, or trash files                        | Commonly uses menus, profiles, rules, or fixed workflows                   |
+| Personalization   | Learns preferred folder names from the corrections you apply                                  | Commonly requires categories or rules to be configured manually            |
+| Review and safety | Provides an editable plan, selective apply, collision protection, and one-click undo          | Preview, editing, and undo support vary by product                         |
+| AI and privacy    | Uses your choice of local AI models and keeps file contents on your Mac                       | AI and cloud usage vary by product                                         |
 
 Sift is not only for cleaning up a folder. It helps you understand and find
 your files first, then turns that understanding into a safe organization plan
@@ -114,9 +80,9 @@ the Sift app icon.
 
 1. Install and open [Ollama](https://ollama.com/download).
 2. Download this repository with **Code → Download ZIP**, then unzip it.
-3. Double-click **`Install Sift.command`** in the unzipped folder.
+3. Double-click `Install Sift.command` in the unzipped folder.
 4. Wait while Sift downloads its default local models and prepares the app.
-5. Finder will reveal **`Sift.app`** when setup is complete. Double-click the
+5. Finder will reveal `Sift.app` when setup is complete. Double-click the
    blue Sift icon to open it.
 
 You can drag `Sift.app` into your Applications folder or Dock. Keep the
@@ -174,13 +140,8 @@ as proposals until you approve them. Delete requests move items to the macOS
 Trash instead of permanently erasing them. You can undo the most recent batch
 from the app.
 
-## Demo files
-
-The original full-resolution recordings are available in [`demo/`](demo/).
-The animated previews above are optimized for fast rendering on GitHub.
-
 ## License
 
 [MIT](LICENSE) © Richard Cornelius Suwandi.
 
-Built by [Richard Cornelius Suwandi](https://richardcsuwandi.github.io).
+Built by [Richard Cornelius Suwandi](https://richardcsuwandi.github.io) with [Qwen 3.8 Max](https://qwen.ai/blog?id=qwen3.8).
