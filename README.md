@@ -18,10 +18,18 @@ Search the way you remember. Ask for "the paper about learning from a few
 examples" or "the invoice from March." Sift searches filenames and document
 contents, then shows the matching evidence so you can verify every result.
 
+<p align="center">
+  <img src="demo/semantic_retrieval.webp" alt="Finding a document with semantic search in Sift" width="900">
+</p>
+
 ### Search inside screenshots and images
 
 Enable image reading during a scan to find screenshots by their visible text
 and visual context, even when the filename tells you nothing useful.
+
+<p align="center">
+  <img src="demo/vision_retrieval.webp" alt="Finding a screenshot by its visual contents in Sift" width="900">
+</p>
 
 ### Organize a folder as one collection
 
@@ -29,11 +37,19 @@ Sift reviews the full batch and proposes useful categories, subfolders, and
 clearer filenames. Related files stay together instead of being classified
 into inconsistent one-off folders.
 
+<p align="center">
+  <img src="demo/organize.webp" alt="Reviewing an AI-generated folder organization plan in Sift" width="900">
+</p>
+
 ### Move, rename, or trash files in plain English
 
 Say "move all PDFs into Papers," "rename these papers as author_year_title,"
 or "trash the installers." Every instruction becomes a reviewable
 before-and-after plan.
+
+<p align="center">
+  <img src="demo/move.webp" alt="Moving files with a natural-language instruction in Sift" width="900">
+</p>
 
 ### Stay in control
 
