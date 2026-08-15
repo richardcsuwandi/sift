@@ -118,7 +118,7 @@ choose **Open**, then confirm that you want to open it.
 ## CLI mode
 
 <p align="center">
-  <img src="demo/sift-cli.png" alt="Sift command-line interface" width="720">
+  <img src="demo/sift-cli.png" alt="Sift command-line interface" width="500">
 </p>
 
 Sift also runs as a command-line app you can talk to. It uses the same local
